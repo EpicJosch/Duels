@@ -60,11 +60,13 @@ public final class Teleport implements Loadable, Listener {
 
         MetadataUtil.put(plugin, player, METADATA_KEY, location.clone());
 
-        teleportAsync(player, location).thenAccept(success -> {
+        player.teleport(location);
+
+        /*teleportAsync(player, location).thenAccept(success -> {
             if (!success) {
                 Log.warn(this, "Could not teleport " + player.getName() + "! Player is dead or is in a vehicle");
             }
-        });
+        });*/
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
