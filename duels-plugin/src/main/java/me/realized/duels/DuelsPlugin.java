@@ -61,6 +61,8 @@ public class DuelsPlugin extends JavaPlugin implements Duels, LogSource {
     private static final int RESOURCE_ID = 114595;
     private static final String SPIGOT_INSTALLATION_URL = "https://www.spigotmc.org/wiki/spigot-installation/";
 
+    public static DuelsPlugin plugin;
+
     @Getter
     private static DuelsPlugin instance;
     @Getter
@@ -115,6 +117,7 @@ public class DuelsPlugin extends JavaPlugin implements Duels, LogSource {
 
     @Override
     public void onEnable() {
+        plugin = this;
         long start = System.currentTimeMillis();
         instance = this;
         morePaperLib = new MorePaperLib(this);
@@ -216,6 +219,10 @@ public class DuelsPlugin extends JavaPlugin implements Duels, LogSource {
         logManager.handleDisable();
         instance = null;
         sendMessage("&aDisable process took " + (System.currentTimeMillis() - start) + "ms.");
+    }
+
+    public static DuelsPlugin getPlugin() {
+        return plugin;
     }
 
     /**
