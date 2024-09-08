@@ -5,6 +5,8 @@ import me.realized.duels.hook.hooks.EssentialsHook;
 import me.realized.duels.util.Loadable;
 import me.realized.duels.util.Log;
 import me.realized.duels.util.metadata.MetadataUtil;
+import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -60,8 +62,9 @@ public final class Teleport implements Loadable, Listener {
 
         MetadataUtil.put(plugin, player, METADATA_KEY, location.clone());
 
-        Thread teleportThread = new Thread(new TeleportThread(player, location));
-        teleportThread.start();
+        Chunk chunk = location.getChunk();
+        chunk.load(true);
+        Bukkit.getScheduler().runTaskLater(DuelsPlugin.getPlugin(), () -> player.teleport(location), 10);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
